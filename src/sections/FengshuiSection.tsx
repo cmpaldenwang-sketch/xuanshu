@@ -1,7 +1,7 @@
 import { FS_LESSONS, FS_MODULES, type FsLesson } from '@/lib/fengshui'
 import { Reveal, SectionHeading, Seal } from '@/components/decor'
 
-export default function FengshuiSection({ lesson }: { lesson: FsLesson }) {
+export default function FengshuiSection({ lesson, dayLabel = '今日' }: { lesson: FsLesson; dayLabel?: string }) {
   return (
     <section id="fengshui" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 md:px-8">
       <Reveal>
@@ -31,7 +31,7 @@ export default function FengshuiSection({ lesson }: { lesson: FsLesson }) {
               ))}
             </div>
             <div className="mt-8 border-l-2 border-gold bg-gold/5 py-4 pl-5 pr-4">
-              <p className="text-xs tracking-[0.35em] text-gold">今日实践</p>
+              <p className="text-xs tracking-[0.35em] text-gold">{dayLabel}实践</p>
               <p className="mt-2 text-[15px] leading-7 tracking-wider text-rice/90">{lesson.practice}</p>
             </div>
           </article>
@@ -59,7 +59,7 @@ export default function FengshuiSection({ lesson }: { lesson: FsLesson }) {
                       >
                         <span className="mr-2 font-num text-[11px] text-dim/60">{String(l.id).padStart(2, '0')}</span>
                         {l.title}
-                        {l.id === lesson.id && <span className="ml-2 rounded-[2px] bg-gold px-1.5 py-0.5 text-[10px] text-ink">今日</span>}
+                        {l.id === lesson.id && <span className="ml-2 rounded-[2px] bg-gold px-1.5 py-0.5 text-[10px] text-ink">{dayLabel}</span>}
                       </li>
                     ))}
                   </ul>

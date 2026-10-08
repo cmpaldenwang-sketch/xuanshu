@@ -4,7 +4,19 @@ import { EclipticRing, Seal } from '@/components/decor'
 import type { CurrentTermState } from '@/lib/solarTerms'
 import { dayNumber } from '@/lib/siteDate'
 
-export default function Hero({ date, almanac, term }: { date: Date; almanac: Almanac; term: CurrentTermState }) {
+export default function Hero({
+  date,
+  almanac,
+  term,
+  isTomorrow = false,
+  onToggleDay,
+}: {
+  date: Date
+  almanac: Almanac
+  term: CurrentTermState
+  isTomorrow?: boolean
+  onToggleDay?: () => void
+}) {
   const { solar, lunar } = almanac
   return (
     <section id="top" className="relative overflow-hidden pb-20 pt-32 md:pt-40">
@@ -31,6 +43,11 @@ export default function Hero({ date, almanac, term }: { date: Date; almanac: Alm
               <p className="text-sm tracking-[0.4em] text-dim">
                 {almanac.yearGz}年 · 每日修习 · 第 {dayNumber(date)} 日
               </p>
+              {isTomorrow && (
+                <span className="border border-vermilion/60 bg-vermilion/10 px-3 py-1 text-xs tracking-[0.35em] text-vermilion">
+                  明日预习
+                </span>
+              )}
             </div>
 
             <h1 className="font-serif leading-none">
@@ -59,10 +76,33 @@ export default function Hero({ date, almanac, term }: { date: Date; almanac: Alm
               {dailyVerdict(almanac)}
             </p>
 
+            {/* 今 / 明日课切换 */}
+            {onToggleDay && (
+              <div className="mt-7 flex flex-wrap items-center gap-5">
+                <button
+                  onClick={onToggleDay}
+                  className="group inline-flex items-center gap-3 border border-gold/40 px-6 py-3 text-sm tracking-[0.35em] text-gold transition-all duration-300 hover:border-gold hover:bg-gold/10"
+                >
+                  {isTomorrow ? (
+                    <>
+                      <span aria-hidden>←</span> 回到今日
+                    </>
+                  ) : (
+                    <>
+                      预习明日 <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </>
+                  )}
+                </button>
+                <span className="text-xs leading-5 tracking-[0.2em] text-dim">
+                  {isTomorrow ? '正在查看明天的四课，明日再来即自动刷新' : '晚间修习，不妨提前一观明日'}
+                </span>
+              </div>
+            )}
+
             <p className="mt-8 max-w-xl text-sm leading-7 tracking-wider text-dim">
-              观天之道，执天之行。今日{almanac.dayGod.god}值日，建除逢「{almanac.jianChu.name}」；
+              观天之道，执天之行。{isTomorrow ? '明日' : '今日'}{almanac.dayGod.god}值日，建除逢「{almanac.jianChu.name}」；
               节气行至「{term.info.name}」，太阳黄经 {Math.round(term.longitudeNow)}°。
-              向下慢行，修习今日四课。
+              向下慢行，修习{isTomorrow ? '明日' : '今日'}四课。
             </p>
           </div>
 

@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import Nav from '@/sections/Nav'
 import Hero from '@/sections/Hero'
 import AlmanacSection from '@/sections/AlmanacSection'
@@ -14,7 +15,12 @@ import { STEM_ROTATION } from '@/lib/stems'
 import { diffDays, getViewDate, mod } from '@/lib/siteDate'
 
 export default function Home() {
-  const date = getViewDate()
+  // dayOffset：0 = 今日，1 = 预习明日（晚上看第二天的日课）
+  const [dayOffset, setDayOffset] = useState(0)
+  const date = useMemo(() => {
+    const base = getViewDate()
+    return new Date(base.getFullYear(), base.getMonth(), base.getDate() + dayOffset, 12, 0, 0)
+  }, [dayOffset])
   const diff = diffDays(date)
 
   const almanac = getAlmanac(date)
@@ -27,12 +33,21 @@ export default function Home() {
     <div className="min-h-screen">
       <Nav />
       <main>
-        <Hero date={date} almanac={almanac} term={term} />
-        <AlmanacSection almanac={almanac} />
+        <Hero
+          date={date}
+          almanac={almanac}
+          term={term}
+          isTomorrow={dayOffset === 1}
+          onToggleDay={() => {
+            setDayOffset((o) => (o === 0 ? 1 : 0))
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }}
+        />
+        <AlmanacSection almanac={almanac} dayLabel={dayOffset === 1 ? '明日' : '今日'} />
         <SolarTermSection term={term} />
-        <FengshuiSection lesson={lesson} />
+        <FengshuiSection lesson={lesson} dayLabel={dayOffset === 1 ? '明日' : '今日'} />
         <HexagramSection hex={hex} />
-        <BaziSection todayStem={stem} />
+        <BaziSection todayStem={stem} dayLabel={dayOffset === 1 ? '明日' : '今日'} />
       </main>
       <footer className="border-t border-gold/15 py-12">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 text-center">

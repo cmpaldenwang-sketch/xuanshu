@@ -1,7 +1,7 @@
 import { BING_ESSAY, STEM_CARDS, STEM_ROTATION, type StemCard } from '@/lib/stems'
 import { Reveal, SectionHeading, Seal } from '@/components/decor'
 
-function StemCardView({ card, isToday }: { card: StemCard; isToday: boolean }) {
+function StemCardView({ card, isToday, dayLabel }: { card: StemCard; isToday: boolean; dayLabel: string }) {
   return (
     <div className={`gold-card flex h-full flex-col rounded-sm p-5 ${isToday ? 'border-gold/60 shadow-glow' : ''}`}>
       <div className="flex items-center gap-4">
@@ -18,7 +18,7 @@ function StemCardView({ card, isToday }: { card: StemCard; isToday: boolean }) {
           </p>
           <p className="mt-0.5 text-xs tracking-widest text-dim">{card.yinYang === '阳' ? '刚健外显' : '柔润内敛'}</p>
         </div>
-        {isToday && <span className="ml-auto rounded-[2px] bg-gold px-2 py-0.5 text-[10px] tracking-widest text-ink">今日轮值</span>}
+        {isToday && <span className="ml-auto rounded-[2px] bg-gold px-2 py-0.5 text-[10px] tracking-widest text-ink">{dayLabel}轮值</span>}
       </div>
       <p className="mt-4 text-[13px] leading-6 tracking-wider text-gold/90">{card.image}</p>
       <ul className="mt-3 space-y-1">
@@ -48,7 +48,7 @@ function StemCardView({ card, isToday }: { card: StemCard; isToday: boolean }) {
   )
 }
 
-export default function BaziSection({ todayStem }: { todayStem: string }) {
+export default function BaziSection({ todayStem, dayLabel = '今日' }: { todayStem: string; dayLabel?: string }) {
   return (
     <section id="bazi" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 md:px-8">
       <Reveal>
@@ -103,13 +103,13 @@ export default function BaziSection({ todayStem }: { todayStem: string }) {
       <Reveal className="mt-10">
         <div className="mb-5 flex items-baseline justify-between">
           <p className="text-sm tracking-[0.35em] text-dim">
-            十日轮转 · 今日值「<span className="text-lg font-bold text-gold">{todayStem}</span>」
+            十日轮转 · {dayLabel}值「<span className="text-lg font-bold text-gold">{todayStem}</span>」
           </p>
           <p className="text-xs tracking-widest text-dim/60">{STEM_ROTATION.join(' → ')}</p>
         </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {STEM_ROTATION.map((s) => (
-            <StemCardView key={s} card={STEM_CARDS[s]} isToday={s === todayStem} />
+            <StemCardView key={s} card={STEM_CARDS[s]} isToday={s === todayStem} dayLabel={dayLabel} />
           ))}
         </div>
       </Reveal>

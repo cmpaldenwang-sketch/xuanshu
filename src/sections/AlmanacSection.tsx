@@ -14,12 +14,12 @@ function GanzhiPillar({ label, gz, nayin }: { label: string; gz: string; nayin: 
   )
 }
 
-export default function AlmanacSection({ almanac }: { almanac: Almanac }) {
+export default function AlmanacSection({ almanac, dayLabel = '今日' }: { almanac: Almanac; dayLabel?: string }) {
   const a = almanac
   return (
     <section id="almanac" className="relative mx-auto max-w-6xl scroll-mt-20 px-4 py-20 md:px-8">
       <Reveal>
-        <SectionHeading num="壹" title="今日黄历" sub="阴阳历合参 · 建除黄道 · 彭祖百忌" />
+        <SectionHeading num="壹" title={`${dayLabel}黄历`} sub="阴阳历合参 · 建除黄道 · 彭祖百忌" />
       </Reveal>
 
       {/* 四柱干支 */}
