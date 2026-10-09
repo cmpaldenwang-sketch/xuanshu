@@ -176,10 +176,10 @@ export function EclipticRing({ longitude, size = 340, compact = false }: { longi
       </defs>
 
       {/* 外环 */}
-      <circle cx={cx} cy={cy} r={rOuter} fill="none" stroke="#A8823F" strokeOpacity="0.35" strokeWidth="0.8" />
-      <circle cx={cx} cy={cy} r={rInner} fill="none" stroke="#A8823F" strokeOpacity="0.18" strokeWidth="0.6" />
+      <circle cx={cx} cy={cy} r={rOuter} fill="none" stroke="#A8823F" strokeOpacity="0.5" strokeWidth="0.9" />
+      <circle cx={cx} cy={cy} r={rInner} fill="none" stroke="#A8823F" strokeOpacity="0.32" strokeWidth="0.7" />
       {/* 公转轨道 */}
-      <circle cx={cx} cy={cy} r={rOrbit} fill="none" stroke="#A8823F" strokeOpacity="0.25" strokeWidth="0.7" strokeDasharray="2 4" />
+      <circle cx={cx} cy={cy} r={rOrbit} fill="none" stroke="#A8823F" strokeOpacity="0.45" strokeWidth="0.8" strokeDasharray="2 4" />
 
       {/* 24 节气刻度 */}
       {TERM_INFO.map((t) => {
@@ -189,7 +189,7 @@ export function EclipticRing({ longitude, size = 340, compact = false }: { longi
         const isCurrent = Math.abs(((longitude - t.longitude + 540) % 360) - 180) > 172.5
         return (
           <g key={t.name}>
-            <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#A8823F" strokeOpacity={major ? 0.7 : 0.35} strokeWidth={major ? 1.4 : 0.7} />
+            <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#A8823F" strokeOpacity={major ? 0.85 : 0.5} strokeWidth={major ? 1.5 : 0.8} />
             {!compact && <TermLabel lon={t.longitude} name={t.name} active={isCurrent} />}
           </g>
         )

@@ -94,7 +94,7 @@ function HexaGrid({ todayId }: { todayId: number }) {
                   : 'border-transparent hover:border-gold/25 hover:bg-gold/5'
               }`}
             >
-              <GuaPaint lines={h.lines} width={30} color={active ? '#A8823F' : '#6E6555'} />
+              <GuaPaint lines={h.lines} width={30} color={active ? '#A8823F' : 'rgba(43,38,32,0.65)'} />
               <span className={`text-center text-[11px] leading-tight tracking-wider ${active ? 'font-bold text-gold' : 'text-dim group-hover:text-rice/80'}`}>
                 {h.name}
               </span>
