@@ -1,8 +1,9 @@
+import { useEffect, useState } from 'react'
 import { HEXAGRAMS, QIAN_YAO, type Hexagram } from '@/lib/hexagrams'
 import { GuaPaint, Reveal, SectionHeading, Seal } from '@/components/decor'
 import { GlossaryTerm } from '@/components/GlossaryTerm'
 
-function TodayHexagram({ hex }: { hex: Hexagram }) {
+function TodayHexagram({ hex, dayLabel, isDayHex }: { hex: Hexagram; dayLabel: string; isDayHex: boolean }) {
   const isQian = hex.id === 1
   return (
     <div className="gold-card relative rounded-sm p-7 md:p-10">
@@ -19,6 +20,11 @@ function TodayHexagram({ hex }: { hex: Hexagram }) {
         <div className="min-w-0 flex-1">
           <p className="text-xs tracking-[0.35em] text-dim">
             周易第 {hex.id} <GlossaryTerm term="卦">卦</GlossaryTerm>
+            {isDayHex ? (
+              <span className="ml-3 rounded-[2px] bg-gold px-1.5 py-0.5 text-[10px] tracking-[0.2em] text-ink">{dayLabel}之卦</span>
+            ) : (
+              <span className="ml-3 rounded-[2px] border border-gold/50 px-1.5 py-0.5 text-[10px] tracking-[0.2em] text-gold">回看中</span>
+            )}
           </p>
           <h3 className="mt-2 text-4xl font-black tracking-[0.15em] text-rice md:text-5xl">{hex.name}</h3>
           <div className="mt-6 space-y-4">
@@ -74,32 +80,59 @@ function TodayHexagram({ hex }: { hex: Hexagram }) {
   )
 }
 
-function HexaGrid({ todayId }: { todayId: number }) {
+function HexaGrid({
+  todayId,
+  selectedId,
+  dayLabel,
+  onSelect,
+}: {
+  todayId: number
+  selectedId: number
+  dayLabel: string
+  onSelect: (id: number) => void
+}) {
   return (
     <div className="gold-card rounded-sm p-6 md:p-8">
       <div className="mb-5 flex items-baseline justify-between">
         <p className="text-sm tracking-[0.35em] text-dim">六十四卦总览</p>
-        <p className="text-xs tracking-widest text-dim/60">按周易卦序排列</p>
+        <p className="text-xs tracking-widest text-dim/60">按周易卦序排列 · 点击任意一卦，随时回看</p>
       </div>
       <div className="grid grid-cols-4 gap-2 sm:grid-cols-8">
         {HEXAGRAMS.map((h) => {
-          const active = h.id === todayId
+          const isToday = h.id === todayId
+          const isSelected = h.id === selectedId
           return (
-            <div
+            <button
               key={h.id}
+              type="button"
               title={`${h.id}. ${h.name}`}
-              className={`group flex flex-col items-center gap-1.5 rounded-sm border px-1 py-3 transition-all duration-300 ${
-                active
+              onClick={() => onSelect(h.id)}
+              aria-pressed={isSelected}
+              className={`group relative flex flex-col items-center gap-1.5 rounded-sm border px-1 py-3 transition-all duration-300 ${
+                isToday
                   ? 'border-gold bg-gold/15 shadow-glow'
-                  : 'border-transparent hover:border-gold/25 hover:bg-gold/5'
+                  : isSelected
+                    ? 'border-gold/70 bg-gold/8'
+                    : 'border-transparent hover:border-gold/25 hover:bg-gold/5'
               }`}
             >
-              <GuaPaint lines={h.lines} width={30} color={active ? '#A8823F' : 'rgba(43,38,32,0.65)'} />
-              <span className={`text-center text-[11px] leading-tight tracking-wider ${active ? 'font-bold text-gold' : 'text-dim group-hover:text-rice/80'}`}>
+              <GuaPaint
+                lines={h.lines}
+                width={30}
+                color={isToday ? '#A8823F' : isSelected ? '#A8823F' : 'rgba(43,38,32,0.65)'}
+              />
+              <span
+                className={`text-center text-[11px] leading-tight tracking-wider ${
+                  isToday || isSelected ? 'font-bold text-gold' : 'text-dim group-hover:text-rice/80'
+                }`}
+              >
                 {h.name}
               </span>
-              <span className={`font-num text-[9px] ${active ? 'text-gold' : 'text-dim/50'}`}>{h.id}</span>
-            </div>
+              <span className={`font-num text-[9px] ${isToday || isSelected ? 'text-gold' : 'text-dim/50'}`}>{h.id}</span>
+              {isToday && (
+                <span className="absolute right-1 top-1 rounded-[2px] bg-gold px-1 text-[9px] leading-4 text-ink">{dayLabel}</span>
+              )}
+            </button>
           )
         })}
       </div>
@@ -107,7 +140,14 @@ function HexaGrid({ todayId }: { todayId: number }) {
   )
 }
 
-export default function HexagramSection({ hex }: { hex: Hexagram }) {
+export default function HexagramSection({ hex, dayLabel = '今日' }: { hex: Hexagram; dayLabel?: string }) {
+  const [selectedId, setSelectedId] = useState(hex.id)
+  // 日期切换后，卦卡回到当日卦
+  useEffect(() => {
+    setSelectedId(hex.id)
+  }, [hex.id])
+  const shown = HEXAGRAMS.find((h) => h.id === selectedId) ?? hex
+
   return (
     <section id="hexagram" className="scroll-mt-20 border-t border-gold/10 bg-card/40 py-20">
       <div className="mx-auto max-w-6xl px-4 md:px-8">
@@ -125,10 +165,10 @@ export default function HexagramSection({ hex }: { hex: Hexagram }) {
           </p>
         </Reveal>
         <Reveal>
-          <TodayHexagram hex={hex} />
+          <TodayHexagram hex={shown} dayLabel={dayLabel} isDayHex={shown.id === hex.id} />
         </Reveal>
         <Reveal className="mt-8" delay={100}>
-          <HexaGrid todayId={hex.id} />
+          <HexaGrid todayId={hex.id} selectedId={shown.id} dayLabel={dayLabel} onSelect={setSelectedId} />
         </Reveal>
       </div>
     </section>

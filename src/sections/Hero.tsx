@@ -5,20 +5,51 @@ import { GlossaryTerm } from '@/components/GlossaryTerm'
 import type { CurrentTermState } from '@/lib/solarTerms'
 import { dayNumber } from '@/lib/siteDate'
 
+function fmtInput(d: Date): string {
+  const p = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`
+}
+
 export default function Hero({
   date,
   almanac,
   term,
-  isTomorrow = false,
-  onToggleDay,
+  dayOffset,
+  minOffset,
+  maxOffset,
+  onGotoOffset,
 }: {
   date: Date
   almanac: Almanac
   term: CurrentTermState
-  isTomorrow?: boolean
-  onToggleDay?: () => void
+  dayOffset: number
+  minOffset: number
+  maxOffset: number
+  onGotoOffset: (offset: number) => void
 }) {
   const { solar, lunar } = almanac
+  const isTomorrow = dayOffset === 1
+  const isReview = dayOffset < 0
+  const reviewLabel =
+    dayOffset === -1 ? '复习 · 昨日' : dayOffset === -2 ? '复习 · 前日' : `复习 · ${solar.month}月${solar.day}日`
+
+  const shiftDate = (days: number) =>
+    new Date(date.getFullYear(), date.getMonth(), date.getDate() + days, 12, 0, 0)
+  const minDate = shiftDate(minOffset - dayOffset)
+  const maxDate = shiftDate(maxOffset - dayOffset)
+
+  const onPickDate = (raw: string) => {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(raw)
+    if (!m) return
+    const picked = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]), 12, 0, 0)
+    if (Number.isNaN(picked.getTime())) return
+    const base = shiftDate(-dayOffset)
+    onGotoOffset(Math.round((picked.getTime() - base.getTime()) / 86400000))
+  }
+
+  const navBtn =
+    'inline-flex items-center gap-1 border border-gold/40 px-4 py-2 text-xs tracking-[0.25em] text-gold transition-all duration-300 hover:border-gold hover:bg-gold/10 disabled:cursor-not-allowed disabled:border-gold/15 disabled:text-dim/50 disabled:hover:bg-transparent'
+
   return (
     <section id="top" className="relative overflow-hidden pb-20 pt-32 md:pt-40">
       {/* 背景太极纹理 */}
@@ -49,6 +80,11 @@ export default function Hero({
                   明日预习
                 </span>
               )}
+              {isReview && (
+                <span className="border border-gold/50 bg-gold/10 px-3 py-1 text-xs tracking-[0.35em] text-gold">
+                  {reviewLabel}
+                </span>
+              )}
             </div>
 
             <h1 className="font-serif leading-none">
@@ -77,35 +113,56 @@ export default function Hero({
               {dailyVerdict(almanac)}
             </p>
 
+            {/* 日期导航：前一日 / 后一日 / 任意跳转 */}
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <button onClick={() => onGotoOffset(dayOffset - 1)} disabled={dayOffset <= minOffset} className={navBtn}>
+                <span aria-hidden>‹</span> 前一日
+              </button>
+              <button onClick={() => onGotoOffset(dayOffset + 1)} disabled={dayOffset >= maxOffset} className={navBtn}>
+                后一日 <span aria-hidden>›</span>
+              </button>
+              <input
+                type="date"
+                aria-label="跳转到指定日期"
+                value={fmtInput(date)}
+                min={fmtInput(minDate)}
+                max={fmtInput(maxDate)}
+                onChange={(e) => onPickDate(e.target.value)}
+                className="border border-gold/40 bg-card px-3 py-2 font-num text-xs tracking-widest text-rice transition-colors duration-300 hover:border-gold focus:border-gold focus:outline-none [color-scheme:light]"
+              />
+            </div>
+
             {/* 今 / 明日课切换 */}
-            {onToggleDay && (
-              <div className="mt-7 flex flex-wrap items-center gap-5">
-                <button
-                  onClick={onToggleDay}
-                  className="group inline-flex items-center gap-3 border border-gold/40 px-6 py-3 text-sm tracking-[0.35em] text-gold transition-all duration-300 hover:border-gold hover:bg-gold/10"
-                >
-                  {isTomorrow ? (
-                    <>
-                      <span aria-hidden>←</span> 回到今日
-                    </>
-                  ) : (
-                    <>
-                      预习明日 <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                    </>
-                  )}
-                </button>
-                <span className="text-xs leading-5 tracking-[0.2em] text-dim">
-                  {isTomorrow ? '正在查看明天的四课，明日再来即自动刷新' : '晚间修习，不妨提前一观明日'}
-                </span>
-              </div>
-            )}
+            <div className="mt-5 flex flex-wrap items-center gap-5">
+              <button
+                onClick={() => onGotoOffset(dayOffset === 0 ? 1 : 0)}
+                className="group inline-flex items-center gap-3 border border-gold/40 px-6 py-3 text-sm tracking-[0.35em] text-gold transition-all duration-300 hover:border-gold hover:bg-gold/10"
+              >
+                {dayOffset !== 0 ? (
+                  <>
+                    <span aria-hidden>←</span> 回到今日
+                  </>
+                ) : (
+                  <>
+                    预习明日 <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  </>
+                )}
+              </button>
+              <span className="text-xs leading-5 tracking-[0.2em] text-dim">
+                {isTomorrow
+                  ? '正在查看明天的四课，明日再来即自动刷新'
+                  : isReview
+                    ? '正在复习往日日课，点「回到今日」返回今天'
+                    : '晚间修习，不妨提前一观明日；也可用箭头翻阅往日'}
+              </span>
+            </div>
 
             <p className="mt-8 max-w-xl text-sm leading-7 tracking-wider text-dim">
-              观天之道，执天之行。{isTomorrow ? '明日' : '今日'}{almanac.dayGod.god}
+              观天之道，执天之行。{dayOffset !== 0 ? (isTomorrow ? '明日' : '当日') : '今日'}{almanac.dayGod.god}
               <GlossaryTerm term="值神">值日</GlossaryTerm>，建除逢「{almanac.jianChu.name}」；
               节气行至「{term.info.name}」，<GlossaryTerm term="太阳黄经">太阳黄经</GlossaryTerm>{' '}
               {Math.round(term.longitudeNow)}°。
-              向下慢行，修习{isTomorrow ? '明日' : '今日'}四课。
+              向下慢行，修习{isTomorrow ? '明日' : isReview ? '当日' : '今日'}四课。
             </p>
           </div>
 
