@@ -1,5 +1,6 @@
 import { BING_ESSAY, STEM_CARDS, STEM_ROTATION, type StemCard } from '@/lib/stems'
 import { Reveal, SectionHeading, Seal } from '@/components/decor'
+import { GlossaryTerm } from '@/components/GlossaryTerm'
 
 function StemCardView({ card, isToday, dayLabel }: { card: StemCard; isToday: boolean; dayLabel: string }) {
   return (
@@ -21,6 +22,10 @@ function StemCardView({ card, isToday, dayLabel }: { card: StemCard; isToday: bo
         {isToday && <span className="ml-auto rounded-[2px] bg-gold px-2 py-0.5 text-[10px] tracking-widest text-ink">{dayLabel}轮值</span>}
       </div>
       <p className="mt-4 text-[13px] leading-6 tracking-wider text-gold/90">{card.image}</p>
+      <p className="mt-2 rounded-sm bg-gold/8 px-3 py-2 text-[13px] leading-6 tracking-wider text-rice/90">
+        <span className="mr-1.5 text-[11px] tracking-[0.2em] text-gold">秒懂</span>
+        {card.oneLiner}
+      </p>
       <ul className="mt-3 space-y-1">
         {card.traits.map((t) => (
           <li key={t} className="flex gap-2 text-[13px] leading-6 tracking-wider text-rice/80">
@@ -31,15 +36,21 @@ function StemCardView({ card, isToday, dayLabel }: { card: StemCard; isToday: bo
       </ul>
       <div className="mt-4 space-y-2 border-t border-gold/12 pt-3 text-[12.5px] leading-6 tracking-wider">
         <p className="text-rice/70">
-          <span className="text-gold">喜　</span>
+          <span className="text-gold">
+            <GlossaryTerm term="喜神">喜</GlossaryTerm>　
+          </span>
           {card.like}
         </p>
         <p className="text-rice/70">
-          <span className="text-vermilion">忌　</span>
+          <span className="text-vermilion">
+            <GlossaryTerm term="忌神">忌</GlossaryTerm>　
+          </span>
           {card.dislike}
         </p>
         <p className="text-dim">
-          <span className="text-dim/80">调候　</span>
+          <span className="text-dim/80">
+            <GlossaryTerm term="调候">调候</GlossaryTerm>　
+          </span>
           {card.seasons}
         </p>
       </div>
@@ -53,6 +64,14 @@ export default function BaziSection({ todayStem, dayLabel = '今日' }: { todayS
     <section id="bazi" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 md:px-8">
       <Reveal>
         <SectionHeading num="伍" title="八字专栏" sub="十天干心性录 · 每日一干" />
+      </Reveal>
+
+      <Reveal>
+        <p className="mb-6 text-sm leading-7 tracking-wider text-dim">
+          <span className="mr-2 inline-block bg-gold/15 px-2 py-0.5 text-xs tracking-[0.25em] text-gold">一句话秒懂</span>
+          你生日那天的天干叫<GlossaryTerm term="日主">日主</GlossaryTerm>，代表你的性格底色。十天干就是十种性格原型，
+          十天轮一圈。卡片里的「喜」「忌」说的是这个天干跟什么五行合得来、跟什么犯冲——都配了大白话。
+        </p>
       </Reveal>
 
       {/* 丙火男深度解析（常设） */}

@@ -106,4 +106,18 @@
   .text-balance {
     text-wrap: balance;
   }
+  /* 术语气泡 200ms 淡入 */
+  .glossary-pop {
+    animation: glossary-pop-in 0.2s ease-out;
+  }
+  @keyframes glossary-pop-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, 4px);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
 }

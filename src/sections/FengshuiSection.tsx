@@ -1,5 +1,23 @@
 import { FS_LESSONS, FS_MODULES, type FsLesson } from '@/lib/fengshui'
 import { Reveal, SectionHeading, Seal } from '@/components/decor'
+import { GlossaryTerm, Rich } from '@/components/GlossaryTerm'
+import { BaguaMap, NinePalace, WuxingCycle } from '@/components/figures'
+
+const FIGURE_META = {
+  wuxing: { label: '图说 · 五行相生相克', node: <WuxingCycle size={310} /> },
+  bagua: { label: '图说 · 后天八卦方位', node: <BaguaMap size={310} /> },
+  palace: { label: '图说 · 九宫格', node: <NinePalace size={290} /> },
+} as const
+
+function LessonFigure({ kind }: { kind: NonNullable<FsLesson['figure']> }) {
+  const meta = FIGURE_META[kind]
+  return (
+    <figure className="my-7 rounded-sm border border-gold/20 bg-black/20 px-4 py-6">
+      {meta.node}
+      <figcaption className="mt-3 text-center text-xs tracking-[0.3em] text-dim">{meta.label}</figcaption>
+    </figure>
+  )
+}
 
 export default function FengshuiSection({ lesson, dayLabel = '今日' }: { lesson: FsLesson; dayLabel?: string }) {
   return (
@@ -22,17 +40,28 @@ export default function FengshuiSection({ lesson, dayLabel = '今日' }: { lesso
             <h3 className="mt-3 max-w-[75%] text-2xl font-bold leading-snug tracking-wider text-rice md:text-3xl">
               {lesson.title}
             </h3>
+            {/* 一句话秒懂 */}
+            <div className="mt-5 inline-flex max-w-full items-start gap-3 rounded-sm border border-gold/25 bg-gold/8 px-4 py-3">
+              <span className="mt-0.5 shrink-0 bg-gold px-2 py-0.5 text-[11px] tracking-[0.2em] text-ink">秒懂</span>
+              <p className="text-[15px] leading-7 tracking-wider text-gold">{lesson.oneLiner}</p>
+            </div>
             <div className="mt-4 h-px w-24 bg-gold/40" />
             <div className="mt-6 space-y-5">
               {lesson.paragraphs.map((p, i) => (
-                <p key={i} className="text-[15px] leading-8 tracking-wider text-rice/85">
-                  {p}
-                </p>
+                <div key={i}>
+                  <p className="text-[15px] leading-8 tracking-wider text-rice/85">
+                    <Rich text={p} />
+                  </p>
+                  {/* 插图插在第二段之后 */}
+                  {lesson.figure && i === 1 && <LessonFigure kind={lesson.figure} />}
+                </div>
               ))}
             </div>
             <div className="mt-8 border-l-2 border-gold bg-gold/5 py-4 pl-5 pr-4">
-              <p className="text-xs tracking-[0.35em] text-gold">{dayLabel}实践</p>
-              <p className="mt-2 text-[15px] leading-7 tracking-wider text-rice/90">{lesson.practice}</p>
+              <p className="text-xs tracking-[0.35em] text-gold">{dayLabel}实践 · 回家就能做</p>
+              <p className="mt-2 text-[15px] leading-7 tracking-wider text-rice/90">
+                <Rich text={lesson.practice} />
+              </p>
             </div>
           </article>
         </Reveal>
@@ -41,7 +70,11 @@ export default function FengshuiSection({ lesson, dayLabel = '今日' }: { lesso
         <Reveal delay={120}>
           <aside className="gold-card h-fit rounded-sm p-6">
             <p className="text-sm tracking-[0.35em] text-dim">课程大纲</p>
-            <p className="mt-1 text-xs tracking-widest text-dim/60">六模块 · 二十四课 · 循环修习</p>
+            <p className="mt-1 text-xs leading-5 tracking-widest text-dim/60">
+              六模块 · 二十四课 · 循环修习
+              <br />
+              遇到<GlossaryTerm term="九宫">金色虚线词</GlossaryTerm>，点开有白话解释
+            </p>
             <div className="mt-5 space-y-5">
               {FS_MODULES.map((mod, mi) => (
                 <div key={mod}>

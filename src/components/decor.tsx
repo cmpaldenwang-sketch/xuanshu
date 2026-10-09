@@ -1,5 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react'
 import { TERM_INFO } from '@/lib/solarTerms'
+import { YIJI_PLAIN } from '@/lib/almanac'
 
 // ---------------- 滚动淡入容器 ----------------
 export function Reveal({ children, className = '', delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
@@ -108,10 +109,13 @@ export function YiJiBlock({ kind, items }: { kind: '宜' | '忌'; items: string[
         >
           {kind}
         </span>
-        <div className="flex flex-wrap gap-x-4 gap-y-2 pt-1.5">
+        <div className="flex flex-wrap gap-x-5 gap-y-3 pt-0.5">
           {items.map((it) => (
-            <span key={it} className="text-[15px] tracking-wider text-rice/90">
-              {it}
+            <span key={it} className="inline-flex flex-col">
+              <span className="text-[15px] tracking-wider text-rice/90">{it}</span>
+              {YIJI_PLAIN[it] && (
+                <span className="mt-0.5 text-[11px] tracking-wider text-dim/80">{YIJI_PLAIN[it]}</span>
+              )}
             </span>
           ))}
         </div>

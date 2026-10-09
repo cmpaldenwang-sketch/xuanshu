@@ -1,6 +1,7 @@
 import type { Almanac } from '@/lib/almanac'
 import { dailyVerdict } from '@/lib/almanac'
 import { EclipticRing, Seal } from '@/components/decor'
+import { GlossaryTerm } from '@/components/GlossaryTerm'
 import type { CurrentTermState } from '@/lib/solarTerms'
 import { dayNumber } from '@/lib/siteDate'
 
@@ -100,8 +101,10 @@ export default function Hero({
             )}
 
             <p className="mt-8 max-w-xl text-sm leading-7 tracking-wider text-dim">
-              观天之道，执天之行。{isTomorrow ? '明日' : '今日'}{almanac.dayGod.god}值日，建除逢「{almanac.jianChu.name}」；
-              节气行至「{term.info.name}」，太阳黄经 {Math.round(term.longitudeNow)}°。
+              观天之道，执天之行。{isTomorrow ? '明日' : '今日'}{almanac.dayGod.god}
+              <GlossaryTerm term="值神">值日</GlossaryTerm>，建除逢「{almanac.jianChu.name}」；
+              节气行至「{term.info.name}」，<GlossaryTerm term="太阳黄经">太阳黄经</GlossaryTerm>{' '}
+              {Math.round(term.longitudeNow)}°。
               向下慢行，修习{isTomorrow ? '明日' : '今日'}四课。
             </p>
           </div>

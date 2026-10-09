@@ -1,6 +1,7 @@
 import type { CurrentTermState } from '@/lib/solarTerms'
 import { TERM_INFO } from '@/lib/solarTerms'
 import { EclipticRing, Reveal, SectionHeading } from '@/components/decor'
+import { GlossaryTerm } from '@/components/GlossaryTerm'
 
 function fmtTermTime(d: Date): string {
   // 以北京时间显示
@@ -41,7 +42,7 @@ export default function SolarTermSection({ term }: { term: CurrentTermState }) {
                   <h3 className="text-4xl font-black tracking-[0.2em] text-rice md:text-5xl">
                     {info.name}
                     <span className="ml-4 align-middle text-sm font-normal tracking-[0.3em] text-dim">
-                      黄经 {info.longitude}°
+                      <GlossaryTerm term="太阳黄经">黄经</GlossaryTerm> {info.longitude}°
                     </span>
                   </h3>
                   <div className="text-right">
@@ -66,6 +67,18 @@ export default function SolarTermSection({ term }: { term: CurrentTermState }) {
                       <p className={`mt-1 text-[15px] tracking-wider ${i === term.houIndex ? 'text-gold' : 'text-rice/85'}`}>{s}</p>
                     </div>
                   ))}
+                </div>
+
+                {/* 大白话科普 */}
+                <div className="mt-7 rounded-sm border border-gold/20 bg-gold/5 p-5">
+                  <p className="text-xs tracking-[0.3em] text-gold">大白话科普</p>
+                  <p className="mt-2 text-sm leading-7 tracking-wider text-rice/85">
+                    地球绕着太阳转圈，<GlossaryTerm term="节气">二十四节气</GlossaryTerm>就是这个圆圈上的 24
+                    个刻度，<GlossaryTerm term="太阳黄经">太阳黄经</GlossaryTerm>就是进度条读数——每走 15°
+                    翻一页。因为地球自转轴是歪的（斜了 23.5°），转到不同位置，阳光照在北半球的角度和时长就不一样，
+                    于是有了春夏秋冬。节气跟月亮无关，所以它的公历日期每年都差不多。而
+                    <GlossaryTerm term="三候">三候</GlossaryTerm>，就是每个节气里古人观察到的三段小变化。
+                  </p>
                 </div>
 
                 <p className="mt-7 text-[15px] leading-8 tracking-wider text-rice/85">{info.intro}</p>
