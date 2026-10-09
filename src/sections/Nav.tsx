@@ -10,7 +10,7 @@ const LINKS = [
 
 export default function Nav() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-gold/15 bg-ink/85 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-gold/20 bg-paper/85 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-8">
         <a href="#top" className="flex items-center gap-3">
           <Seal size={30} />

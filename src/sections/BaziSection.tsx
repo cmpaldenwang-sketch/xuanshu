@@ -79,8 +79,8 @@ export default function BaziSection({ todayStem, dayLabel = '今日' }: { todayS
         <article className="gold-card relative overflow-hidden rounded-sm p-7 md:p-10">
           <div className="pointer-events-none absolute -right-10 -top-10 opacity-[0.06]" aria-hidden>
             <svg width="240" height="240" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#C9A35C" strokeWidth="1" />
-              <circle cx="50" cy="50" r="18" fill="#C9A35C" />
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#A8823F" strokeWidth="1" />
+              <circle cx="50" cy="50" r="18" fill="#A8823F" />
               {Array.from({ length: 12 }).map((_, i) => {
                 const a = (i * Math.PI) / 6
                 return (
@@ -90,7 +90,7 @@ export default function BaziSection({ todayStem, dayLabel = '今日' }: { todayS
                     y1={50 + 26 * Math.sin(a)}
                     x2={50 + 36 * Math.cos(a)}
                     y2={50 + 36 * Math.sin(a)}
-                    stroke="#C9A35C"
+                    stroke="#A8823F"
                     strokeWidth="1.5"
                   />
                 )

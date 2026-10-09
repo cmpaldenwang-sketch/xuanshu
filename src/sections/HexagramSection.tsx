@@ -11,7 +11,7 @@ function TodayHexagram({ hex }: { hex: Hexagram }) {
       </div>
       <div className="flex flex-wrap items-start gap-8">
         <div className="flex flex-col items-center gap-3">
-          <GuaPaint lines={hex.lines} width={88} color="#C9A35C" />
+          <GuaPaint lines={hex.lines} width={88} color="#2B2620" />
           <p className="text-xs tracking-[0.3em] text-dim">
             {hex.upper}上{hex.lower}下
           </p>
@@ -57,7 +57,7 @@ function TodayHexagram({ hex }: { hex: Hexagram }) {
                 {i < QIAN_YAO.length - 1 && (
                   <span className="absolute left-[7px] top-6 h-full w-px bg-gold/20" aria-hidden />
                 )}
-                <span className="absolute left-0 top-1.5 h-[15px] w-[15px] rounded-full border border-gold/60 bg-ink" aria-hidden>
+                <span className="absolute left-0 top-1.5 h-[15px] w-[15px] rounded-full border border-gold/60 bg-card" aria-hidden>
                   <span className="absolute inset-[4px] rounded-full bg-gold" />
                 </span>
                 <div>
@@ -94,7 +94,7 @@ function HexaGrid({ todayId }: { todayId: number }) {
                   : 'border-transparent hover:border-gold/25 hover:bg-gold/5'
               }`}
             >
-              <GuaPaint lines={h.lines} width={30} color={active ? '#E8C876' : '#8A7F68'} />
+              <GuaPaint lines={h.lines} width={30} color={active ? '#A8823F' : '#6E6555'} />
               <span className={`text-center text-[11px] leading-tight tracking-wider ${active ? 'font-bold text-gold' : 'text-dim group-hover:text-rice/80'}`}>
                 {h.name}
               </span>

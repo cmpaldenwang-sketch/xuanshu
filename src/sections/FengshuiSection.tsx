@@ -12,7 +12,7 @@ const FIGURE_META = {
 function LessonFigure({ kind }: { kind: NonNullable<FsLesson['figure']> }) {
   const meta = FIGURE_META[kind]
   return (
-    <figure className="my-7 rounded-sm border border-gold/20 bg-black/20 px-4 py-6">
+    <figure className="my-7 rounded-sm border border-gold/25 bg-white/40 px-4 py-6">
       {meta.node}
       <figcaption className="mt-3 text-center text-xs tracking-[0.3em] text-dim">{meta.label}</figcaption>
     </figure>

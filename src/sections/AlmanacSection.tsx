@@ -56,7 +56,7 @@ export default function AlmanacSection({ almanac, dayLabel = '今日' }: { alman
               </span>
               <span
                 className={`rounded-[2px] px-3 py-1 text-sm tracking-[0.3em] ${
-                  a.dayGod.isAuspicious ? 'bg-gold text-ink' : 'bg-vermilion/80 text-rice'
+                  a.dayGod.isAuspicious ? 'bg-gold text-ink' : 'bg-vermilion/80 text-[#FFF6E8]'
                 }`}
               >
                 <GlossaryTerm term={a.dayGod.isAuspicious ? '黄道日' : '黑道日'} inherit>

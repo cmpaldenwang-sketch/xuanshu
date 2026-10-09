@@ -64,7 +64,7 @@ export function GuaPaint({
   lines,
   width = 64,
   gap,
-  color = '#C9A35C',
+  color = '#2B2620',
   className = '',
 }: {
   lines: number[] // 自下而上，1 阳 0 阴
@@ -103,7 +103,7 @@ export function YiJiBlock({ kind, items }: { kind: '宜' | '忌'; items: string[
       <div className="flex items-start gap-4">
         <span
           className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-sm text-lg font-bold ${
-            isYi ? 'bg-gold text-ink' : 'bg-vermilion text-rice'
+            isYi ? 'bg-gold text-ink' : 'bg-vermilion text-[#FFF6E8]'
           }`}
           style={{ fontFamily: "'Songti SC','Noto Serif SC',serif" }}
         >
@@ -132,7 +132,7 @@ export function HourStrip({ hours }: { hours: { zhi: string; timeRange: string; 
         <div
           key={h.zhi}
           className={`flex flex-col items-center gap-1 px-1 py-3 text-center transition-colors ${
-            h.isAuspicious ? 'bg-gold/12 hover:bg-gold/20' : 'bg-black/25 hover:bg-black/35'
+            h.isAuspicious ? 'bg-gold/12 hover:bg-gold/20' : 'bg-[#EAE3D5] hover:bg-[#E1D9C6]'
           }`}
         >
           <span className={`text-base font-semibold ${h.isAuspicious ? 'text-gold' : 'text-dim'}`}>{h.zhi}</span>
@@ -140,7 +140,7 @@ export function HourStrip({ hours }: { hours: { zhi: string; timeRange: string; 
           <span className={`text-[11px] ${h.isAuspicious ? 'text-gold/90' : 'text-dim/80'}`}>{h.god}</span>
           <span
             className={`mt-0.5 rounded-[2px] px-1.5 text-[10px] tracking-widest ${
-              h.isAuspicious ? 'bg-gold/20 text-gold' : 'bg-white/5 text-dim/60'
+              h.isAuspicious ? 'bg-gold/20 text-gold' : 'bg-black/5 text-dim/70'
             }`}
           >
             {h.isAuspicious ? '吉' : '凶'}
@@ -169,17 +169,17 @@ export function EclipticRing({ longitude, size = 340, compact = false }: { longi
     <svg viewBox="0 0 400 400" width={size} height={size} className="mx-auto" role="img" aria-label="黄道二十四节气图">
       <defs>
         <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#E8C876" />
-          <stop offset="55%" stopColor="#C9A35C" />
-          <stop offset="100%" stopColor="#C9A35C" stopOpacity="0" />
+          <stop offset="0%" stopColor="#D9B36A" />
+          <stop offset="55%" stopColor="#A8823F" />
+          <stop offset="100%" stopColor="#A8823F" stopOpacity="0" />
         </radialGradient>
       </defs>
 
       {/* 外环 */}
-      <circle cx={cx} cy={cy} r={rOuter} fill="none" stroke="#C9A35C" strokeOpacity="0.35" strokeWidth="0.8" />
-      <circle cx={cx} cy={cy} r={rInner} fill="none" stroke="#C9A35C" strokeOpacity="0.18" strokeWidth="0.6" />
+      <circle cx={cx} cy={cy} r={rOuter} fill="none" stroke="#A8823F" strokeOpacity="0.35" strokeWidth="0.8" />
+      <circle cx={cx} cy={cy} r={rInner} fill="none" stroke="#A8823F" strokeOpacity="0.18" strokeWidth="0.6" />
       {/* 公转轨道 */}
-      <circle cx={cx} cy={cy} r={rOrbit} fill="none" stroke="#C9A35C" strokeOpacity="0.25" strokeWidth="0.7" strokeDasharray="2 4" />
+      <circle cx={cx} cy={cy} r={rOrbit} fill="none" stroke="#A8823F" strokeOpacity="0.25" strokeWidth="0.7" strokeDasharray="2 4" />
 
       {/* 24 节气刻度 */}
       {TERM_INFO.map((t) => {
@@ -189,7 +189,7 @@ export function EclipticRing({ longitude, size = 340, compact = false }: { longi
         const isCurrent = Math.abs(((longitude - t.longitude + 540) % 360) - 180) > 172.5
         return (
           <g key={t.name}>
-            <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#C9A35C" strokeOpacity={major ? 0.7 : 0.35} strokeWidth={major ? 1.4 : 0.7} />
+            <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#A8823F" strokeOpacity={major ? 0.7 : 0.35} strokeWidth={major ? 1.4 : 0.7} />
             {!compact && <TermLabel lon={t.longitude} name={t.name} active={isCurrent} />}
           </g>
         )
@@ -197,13 +197,13 @@ export function EclipticRing({ longitude, size = 340, compact = false }: { longi
 
       {/* 太阳 */}
       <circle cx={cx} cy={cy} r="34" fill="url(#sunGrad)" opacity="0.5" />
-      <circle cx={cx} cy={cy} r="14" fill="#E8C876" />
-      <circle cx={cx} cy={cy} r="14" fill="none" stroke="#C9A35C" strokeOpacity="0.6" strokeWidth="0.8" />
+      <circle cx={cx} cy={cy} r="14" fill="#C9963F" />
+      <circle cx={cx} cy={cy} r="14" fill="none" stroke="#A8823F" strokeOpacity="0.6" strokeWidth="0.8" />
 
       {/* 地球 */}
       <g>
-        <circle cx={ex} cy={ey} r="7" fill="#7A9B6D" stroke="#E8E0CF" strokeOpacity="0.7" strokeWidth="0.8" />
-        <circle cx={ex} cy={ey} r="11" fill="none" stroke="#C9A35C" strokeOpacity="0.5" strokeWidth="0.7">
+        <circle cx={ex} cy={ey} r="7" fill="#7A9B6D" stroke="#FFFDF7" strokeOpacity="0.9" strokeWidth="1" />
+        <circle cx={ex} cy={ey} r="11" fill="none" stroke="#A8823F" strokeOpacity="0.5" strokeWidth="0.7">
           <animate attributeName="r" values="9;13;9" dur="3s" repeatCount="indefinite" />
           <animate attributeName="stroke-opacity" values="0.6;0.1;0.6" dur="3s" repeatCount="indefinite" />
         </circle>
@@ -222,7 +222,7 @@ export function EclipticRing({ longitude, size = 340, compact = false }: { longi
         textAnchor="middle"
         dominantBaseline="central"
         fontSize={major ? 13 : 10.5}
-        fill={active ? '#E8C876' : major ? '#C9A35C' : '#8A7F68'}
+        fill={active ? '#A8823F' : major ? '#A8823F' : '#6E6555'}
         fontFamily="'Songti SC','Noto Serif SC',serif"
         fontWeight={active || major ? 600 : 400}
       >

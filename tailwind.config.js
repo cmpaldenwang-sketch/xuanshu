@@ -5,11 +5,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ink: "#12100C",        // 底色深墨
-        card: "#1A1712",       // 卡片面
-        gold: "#C9A35C",       // 金
-        rice: "#E8E0CF",       // 主文字
-        dim: "#8A7F68",        // 次要文字
+        ink: "#12100C",        // 深墨（保留：金底徽章上的文字用）
+        paper: "#F7F3EA",      // 页面底色·宣纸
+        card: "#FFFDF7",       // 卡片面
+        gold: "#A8823F",       // 金（浅底上更深）
+        rice: "#2B2620",       // 主文字·墨色
+        dim: "#6E6555",        // 次要文字
         vermilion: "#A63A2B",  // 印章红
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -68,7 +69,7 @@ module.exports = {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        glow: "0 0 24px rgba(201,163,92,0.12)",
+        glow: "0 6px 24px rgba(43,38,32,0.1)",
       },
       keyframes: {
         "accordion-down": {

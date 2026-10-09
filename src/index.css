@@ -4,34 +4,34 @@
 
 @layer base {
   :root {
-    --background: 40 15% 6%;
-    --foreground: 42 30% 86%;
-    --card: 36 17% 9%;
-    --card-foreground: 42 30% 86%;
-    --popover: 36 17% 9%;
-    --popover-foreground: 42 30% 86%;
-    --primary: 38 46% 57%;
-    --primary-foreground: 40 15% 6%;
-    --secondary: 36 12% 14%;
-    --secondary-foreground: 42 30% 86%;
-    --muted: 36 12% 14%;
-    --muted-foreground: 40 13% 52%;
-    --accent: 36 12% 14%;
-    --accent-foreground: 38 46% 57%;
+    --background: 41 33% 94%;
+    --foreground: 33 13% 15%;
+    --card: 45 100% 98%;
+    --card-foreground: 33 13% 15%;
+    --popover: 45 100% 98%;
+    --popover-foreground: 33 13% 15%;
+    --primary: 36 45% 45%;
+    --primary-foreground: 41 33% 94%;
+    --secondary: 40 28% 90%;
+    --secondary-foreground: 33 13% 15%;
+    --muted: 40 24% 88%;
+    --muted-foreground: 34 12% 38%;
+    --accent: 40 28% 90%;
+    --accent-foreground: 36 45% 40%;
     --destructive: 8 59% 41%;
-    --destructive-foreground: 42 30% 86%;
-    --border: 38 20% 24%;
-    --input: 38 20% 24%;
-    --ring: 38 46% 57%;
+    --destructive-foreground: 41 33% 94%;
+    --border: 38 24% 76%;
+    --input: 38 24% 76%;
+    --ring: 36 45% 45%;
     --radius: 0.375rem;
-    --sidebar-background: 40 15% 6%;
-    --sidebar-foreground: 42 30% 86%;
-    --sidebar-primary: 38 46% 57%;
-    --sidebar-primary-foreground: 40 15% 6%;
-    --sidebar-accent: 36 12% 14%;
-    --sidebar-accent-foreground: 42 30% 86%;
-    --sidebar-border: 38 20% 24%;
-    --sidebar-ring: 38 46% 57%;
+    --sidebar-background: 41 33% 94%;
+    --sidebar-foreground: 33 13% 15%;
+    --sidebar-primary: 36 45% 45%;
+    --sidebar-primary-foreground: 41 33% 94%;
+    --sidebar-accent: 40 28% 90%;
+    --sidebar-accent-foreground: 33 13% 15%;
+    --sidebar-border: 38 24% 76%;
+    --sidebar-ring: 36 45% 45%;
   }
 }
 
@@ -43,28 +43,28 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-ink text-rice font-serif antialiased;
-    /* 极淡宣纸纹理 + 八卦底纹质感 */
+    @apply bg-paper text-rice font-serif antialiased;
+    /* 极淡宣纸纹理 + 晨光暖意 */
     background-image:
-      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201, 163, 92, 0.05), transparent),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(168, 130, 63, 0.07), transparent),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.15 0 0 0 0 0.12 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
   }
   ::selection {
-    background: rgba(201, 163, 92, 0.25);
-    color: #e8e0cf;
+    background: rgba(168, 130, 63, 0.28);
+    color: #2b2620;
   }
   ::-webkit-scrollbar {
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #12100c;
+    background: #f0ead9;
   }
   ::-webkit-scrollbar-thumb {
-    background: #2b261c;
+    background: #d8cfbb;
     border-radius: 5px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #3a3325;
+    background: #c7bba1;
   }
 }
 
@@ -74,10 +74,10 @@
     text-orientation: upright;
   }
   .hairline {
-    border-color: rgba(201, 163, 92, 0.22);
+    border-color: rgba(168, 130, 63, 0.3);
   }
   .gold-text {
-    color: #c9a35c;
+    color: #a8823f;
   }
   /* 滚动淡入 */
   .reveal {
@@ -91,17 +91,17 @@
     opacity: 1;
     transform: translateY(0);
   }
-  /* 金边微亮 */
+  /* 金边纸卡 */
   .gold-card {
-    background: #1a1712;
-    border: 1px solid rgba(201, 163, 92, 0.16);
+    background: #fffdf7;
+    border: 1px solid rgba(168, 130, 63, 0.24);
     transition:
       border-color 0.5s ease,
       box-shadow 0.5s ease;
   }
   .gold-card:hover {
-    border-color: rgba(201, 163, 92, 0.42);
-    box-shadow: 0 0 32px rgba(201, 163, 92, 0.07);
+    border-color: rgba(168, 130, 63, 0.5);
+    box-shadow: 0 12px 32px rgba(43, 38, 32, 0.1);
   }
   .text-balance {
     text-wrap: balance;

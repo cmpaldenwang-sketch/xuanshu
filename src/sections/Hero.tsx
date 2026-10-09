@@ -23,14 +23,14 @@ export default function Hero({
     <section id="top" className="relative overflow-hidden pb-20 pt-32 md:pt-40">
       {/* 背景太极纹理 */}
       <div
-        className="pointer-events-none absolute -right-40 -top-40 h-[560px] w-[560px] opacity-[0.05]"
+        className="pointer-events-none absolute -right-40 -top-40 h-[560px] w-[560px] opacity-[0.08]"
         aria-hidden
       >
         <svg viewBox="0 0 200 200" className="h-full w-full animate-[spin_120s_linear_infinite]">
-          <circle cx="100" cy="100" r="98" fill="none" stroke="#C9A35C" strokeWidth="1" />
-          <path d="M100 2 a98 98 0 0 1 0 196 a49 49 0 0 1 0-98 a49 49 0 0 0 0-98z" fill="#C9A35C" />
-          <circle cx="100" cy="51" r="10" fill="#C9A35C" />
-          <circle cx="100" cy="149" r="10" fill="#12100C" />
+          <circle cx="100" cy="100" r="98" fill="none" stroke="#A8823F" strokeWidth="1" />
+          <path d="M100 2 a98 98 0 0 1 0 196 a49 49 0 0 1 0-98 a49 49 0 0 0 0-98z" fill="#A8823F" />
+          <circle cx="100" cy="51" r="10" fill="#A8823F" />
+          <circle cx="100" cy="149" r="10" fill="#F7F3EA" />
         </svg>
       </div>
 

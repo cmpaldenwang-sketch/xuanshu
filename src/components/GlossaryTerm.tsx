@@ -42,7 +42,7 @@ export function GlossaryTerm({ term, children, inherit = false }: { term: string
         className={`cursor-help border-b border-dashed pb-px transition-colors ${
           inherit
             ? 'border-current/70 text-inherit hover:opacity-80'
-            : 'border-gold/60 text-gold hover:border-gold hover:text-[#E8C876]'
+            : 'border-gold/60 text-gold hover:border-gold hover:text-[#8A6D33]'
         }`}
       >
         {children ?? term}
@@ -50,13 +50,13 @@ export function GlossaryTerm({ term, children, inherit = false }: { term: string
       {open && (
         <span
           role="tooltip"
-          className="glossary-pop absolute bottom-full left-1/2 z-50 mb-2 block w-64 -translate-x-1/2 rounded-sm border border-gold/40 bg-[#221D14] p-3.5 text-left shadow-[0_8px_32px_rgba(0,0,0,0.55)] sm:w-72"
+          className="glossary-pop absolute bottom-full left-1/2 z-50 mb-2 block w-64 -translate-x-1/2 rounded-sm border border-gold/40 bg-[#FFFDF7] p-3.5 text-left shadow-[0_8px_24px_rgba(43,38,32,0.18)] sm:w-72"
         >
           <span className="mb-1 block text-xs font-semibold tracking-[0.3em] text-gold">{entry.term}</span>
           <span className="block text-[13px] leading-6 tracking-wider text-rice/90">{entry.plain}</span>
           <span
             aria-hidden
-            className="absolute left-1/2 top-full h-2 w-2 -translate-x-1/2 -translate-y-1 rotate-45 border-b border-r border-gold/40 bg-[#221D14]"
+            className="absolute left-1/2 top-full h-2 w-2 -translate-x-1/2 -translate-y-1 rotate-45 border-b border-r border-gold/40 bg-[#FFFDF7]"
           />
         </span>
       )}

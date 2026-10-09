@@ -24,7 +24,7 @@ export function WuxingCycle({ size = 320 }: { size?: number }) {
     <svg viewBox="0 0 320 320" width={size} height={size} className="mx-auto" role="img" aria-label="五行相生相克图">
       <defs>
         <marker id="wxArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M 0 1.5 L 9 5 L 0 8.5" fill="none" stroke="#C9A35C" strokeWidth="1.2" />
+          <path d="M 0 1.5 L 9 5 L 0 8.5" fill="none" stroke="#A8823F" strokeWidth="1.2" />
         </marker>
       </defs>
       {/* 相生外环（顺时针）：木→火→土→金→水→木 */}
@@ -37,7 +37,7 @@ export function WuxingCycle({ size = 320 }: { size?: number }) {
             key={`sheng-${it.name}`}
             d={`M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}`}
             fill="none"
-            stroke="#C9A35C"
+            stroke="#A8823F"
             strokeOpacity="0.75"
             strokeWidth="1.2"
             markerEnd="url(#wxArrow)"
@@ -68,17 +68,17 @@ export function WuxingCycle({ size = 320 }: { size?: number }) {
         const [x, y] = pt(it.angle)
         return (
           <g key={it.name}>
-            <circle cx={x} cy={y} r="24" fill="#1A1712" stroke="#C9A35C" strokeOpacity="0.6" strokeWidth="1" />
-            <text x={x} y={y - 2} textAnchor="middle" dominantBaseline="central" fontSize="19" fontWeight="700" fill="#E8C876" fontFamily="'Songti SC','Noto Serif SC',serif">
+            <circle cx={x} cy={y} r="24" fill="#FFFDF7" stroke="#A8823F" strokeOpacity="0.6" strokeWidth="1" />
+            <text x={x} y={y - 2} textAnchor="middle" dominantBaseline="central" fontSize="19" fontWeight="700" fill="#A8823F" fontFamily="'Songti SC','Noto Serif SC',serif">
               {it.name}
             </text>
-            <text x={x} y={y + 13} textAnchor="middle" dominantBaseline="central" fontSize="7.5" fill="#8A7F68" fontFamily="'Songti SC','Noto Serif SC',serif">
+            <text x={x} y={y + 13} textAnchor="middle" dominantBaseline="central" fontSize="7.5" fill="#6E6555" fontFamily="'Songti SC','Noto Serif SC',serif">
               {it.en}
             </text>
           </g>
         )
       })}
-      <text x={cx} y={cy - 8} textAnchor="middle" fontSize="11" fill="#C9A35C" fontFamily="'Songti SC','Noto Serif SC',serif" letterSpacing="3">
+      <text x={cx} y={cy - 8} textAnchor="middle" fontSize="11" fill="#A8823F" fontFamily="'Songti SC','Noto Serif SC',serif" letterSpacing="3">
         相生
       </text>
       <text x={cx} y={cy + 10} textAnchor="middle" fontSize="11" fill="#A63A2B" fillOpacity="0.85" fontFamily="'Songti SC','Noto Serif SC',serif" letterSpacing="3">
@@ -110,12 +110,12 @@ export function BaguaMap({ size = 320 }: { size?: number }) {
   }
   return (
     <svg viewBox="0 0 320 320" width={size} height={size} className="mx-auto" role="img" aria-label="后天八卦方位图">
-      <circle cx={cx} cy={cy} r={r + 24} fill="none" stroke="#C9A35C" strokeOpacity="0.3" strokeWidth="0.8" />
-      <circle cx={cx} cy={cy} r={r - 30} fill="none" stroke="#C9A35C" strokeOpacity="0.18" strokeWidth="0.6" />
+      <circle cx={cx} cy={cy} r={r + 24} fill="none" stroke="#A8823F" strokeOpacity="0.3" strokeWidth="0.8" />
+      <circle cx={cx} cy={cy} r={r - 30} fill="none" stroke="#A8823F" strokeOpacity="0.18" strokeWidth="0.6" />
       {guas.map((g) => {
         const [x1, y1] = pt(g.angle - 22.5, r - 30)
         const [x2, y2] = pt(g.angle - 22.5, r + 24)
-        return <line key={`sp-${g.name}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#C9A35C" strokeOpacity="0.2" strokeWidth="0.6" />
+        return <line key={`sp-${g.name}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#A8823F" strokeOpacity="0.2" strokeWidth="0.6" />
       })}
       {guas.map((g) => {
         const [x, y] = pt(g.angle, r - 2)
@@ -126,27 +126,27 @@ export function BaguaMap({ size = 320 }: { size?: number }) {
             <g transform={`translate(${x - 13}, ${y - 11}) rotate(${g.angle}, 13, 11)`}>
               {[...g.lines].reverse().map((yang, i) =>
                 yang ? (
-                  <rect key={i} x="0" y={i * 8} width="26" height="3" rx="1" fill="#C9A35C" />
+                  <rect key={i} x="0" y={i * 8} width="26" height="3" rx="1" fill="#A8823F" />
                 ) : (
                   <g key={i}>
-                    <rect x="0" y={i * 8} width="11" height="3" rx="1" fill="#C9A35C" />
-                    <rect x="15" y={i * 8} width="11" height="3" rx="1" fill="#C9A35C" />
+                    <rect x="0" y={i * 8} width="11" height="3" rx="1" fill="#A8823F" />
+                    <rect x="15" y={i * 8} width="11" height="3" rx="1" fill="#A8823F" />
                   </g>
                 ),
               )}
             </g>
-            <text x={lx} y={ly - 4} textAnchor="middle" fontSize="14" fontWeight="600" fill="#E8C876" fontFamily="'Songti SC','Noto Serif SC',serif">
+            <text x={lx} y={ly - 4} textAnchor="middle" fontSize="14" fontWeight="600" fill="#A8823F" fontFamily="'Songti SC','Noto Serif SC',serif">
               {g.name} · {g.elem}
             </text>
-            <text x={lx} y={ly + 11} textAnchor="middle" fontSize="8.5" fill="#8A7F68" fontFamily="'Songti SC','Noto Serif SC',serif" letterSpacing="1">
+            <text x={lx} y={ly + 11} textAnchor="middle" fontSize="8.5" fill="#6E6555" fontFamily="'Songti SC','Noto Serif SC',serif" letterSpacing="1">
               {g.dir} · {g.family}
             </text>
           </g>
         )
       })}
       {/* 中心太极点 */}
-      <circle cx={cx} cy={cy} r="3" fill="#C9A35C" />
-      <text x={cx} y={cy - 14} textAnchor="middle" fontSize="10" fill="#8A7F68" fontFamily="'Songti SC','Noto Serif SC',serif" letterSpacing="2">
+      <circle cx={cx} cy={cy} r="3" fill="#A8823F" />
+      <text x={cx} y={cy - 14} textAnchor="middle" fontSize="10" fill="#6E6555" fontFamily="'Songti SC','Noto Serif SC',serif" letterSpacing="2">
         屋之中
       </text>
     </svg>
@@ -171,20 +171,20 @@ export function NinePalace({ size = 300 }: { size?: number }) {
         const isCenter = c.n === 5
         return (
           <g key={c.n}>
-            <rect x={x} y={y} width={cs - 4} height={cs - 4} rx="2" fill={isCenter ? '#C9A35C' : '#1A1712'} fillOpacity={isCenter ? 0.14 : 1} stroke="#C9A35C" strokeOpacity={isCenter ? 0.55 : 0.3} strokeWidth="1" />
-            <text x={x + (cs - 4) / 2} y={y + 26} textAnchor="middle" fontSize="15" fontWeight="700" fill={isCenter ? '#E8C876' : '#C9A35C'} fontFamily="'Cormorant Garamond','Songti SC',serif">
+            <rect x={x} y={y} width={cs - 4} height={cs - 4} rx="2" fill={isCenter ? '#A8823F' : '#FFFDF7'} fillOpacity={isCenter ? 0.14 : 1} stroke="#A8823F" strokeOpacity={isCenter ? 0.55 : 0.3} strokeWidth="1" />
+            <text x={x + (cs - 4) / 2} y={y + 26} textAnchor="middle" fontSize="15" fontWeight="700" fill={isCenter ? '#A8823F' : '#A8823F'} fontFamily="'Cormorant Garamond','Songti SC',serif">
               {c.n}
             </text>
-            <text x={x + (cs - 4) / 2} y={y + 47} textAnchor="middle" fontSize="13" fill="#E8E0CF" fontFamily="'Songti SC','Noto Serif SC',serif">
+            <text x={x + (cs - 4) / 2} y={y + 47} textAnchor="middle" fontSize="13" fill="#2B2620" fontFamily="'Songti SC','Noto Serif SC',serif">
               {c.gua}
             </text>
-            <text x={x + (cs - 4) / 2} y={y + 66} textAnchor="middle" fontSize="9" fill="#8A7F68" fontFamily="'Songti SC','Noto Serif SC',serif" letterSpacing="1">
+            <text x={x + (cs - 4) / 2} y={y + 66} textAnchor="middle" fontSize="9" fill="#6E6555" fontFamily="'Songti SC','Noto Serif SC',serif" letterSpacing="1">
               {c.dir} · {c.elem}
             </text>
           </g>
         )
       })}
-      <text x={150} y={306} textAnchor="middle" fontSize="9.5" fill="#8A7F68" fontFamily="'Songti SC','Noto Serif SC',serif" letterSpacing="2">
+      <text x={150} y={306} textAnchor="middle" fontSize="9.5" fill="#6E6555" fontFamily="'Songti SC','Noto Serif SC',serif" letterSpacing="2">
         上南下北 · 与户型图叠合使用
       </text>
     </svg>
